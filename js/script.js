@@ -1,6 +1,6 @@
 let display = document.getElementById("display");
 let myArray = [];
-let operator, total, solution;
+let operator, total, roundedTotal, solution;
 
 let nums = document.querySelectorAll(".num");                                               //when 'num' buttons clicked, add the num values to the display
 nums.forEach((num) => {
@@ -21,7 +21,7 @@ ops.forEach((op) => {
             });
             myArray = [];                                                                   //clear space for new input
             operate();                                                                      //calculate & return solution
-            firstInput = total;                                                             //store solution as value for continuing equation without = being clicked
+            firstInput = roundedTotal;                                                             //store solution as value for continuing equation without = being clicked
         } else {
             firstInput = myArray.reduce((firstValue, currentValue) => {                     //if there is no firstInput, create firstInput
                 return `${firstValue}` + `${currentValue}`;
@@ -39,15 +39,21 @@ equals.addEventListener('click', () => {                                        
         return `${firstValue}` + `${currentValue}`;
         });
     operate()                                                                           //calculate & return solution
-    solution = total;                                                                   //store solution as value for continuing equation
+    solution = roundedTotal;                                                                   //store solution as value for continuing equation
 });
 
 let clear = document.getElementById("clear");
 clear.addEventListener('click', () => {                                                 //when clear button is clicked
     myArray = [];                                                                       //clear space for new input
     firstInput = "";                                                                    //reset firstInput
+    secondInput = "";
+    solution = "";
     display.textContent = myArray;              
 });
+
+function round(value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals)
+}
 
 function operate() {                                                                    //choose correct formula based on operator
     if (operator == "+") {
@@ -59,8 +65,9 @@ function operate() {                                                            
     } else if (operator == "/") {
         divide(firstInput, secondInput)
     };
-    display.textContent = total;
-    return total;
+    roundedTotal = round(total, 9);
+    display.textContent = roundedTotal;
+    return roundedTotal;
 };
 
 function add (a, b) {
