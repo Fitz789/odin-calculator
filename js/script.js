@@ -45,9 +45,8 @@ equals.addEventListener('click', () => {                                        
 let clear = document.getElementById("clear");
 clear.addEventListener('click', () => {                                                 //when clear button is clicked
     myArray = [];                                                                       //clear space for new input
-    firstInput = "";                                                                    //reset firstInput
-    secondInput = "";
-    solution = "";
+    firstInput = undefined;                                                                    //reset firstInput
+    solution = undefined;
     display.textContent = myArray;              
 });
 
