@@ -1,6 +1,6 @@
 let display = document.getElementById("display");
 let myArray = [];
-let operator, total, roundedTotal, solution;
+let operator, total, roundedTotal, solution, errorMessage;
 
 let nums = document.querySelectorAll(".num");                                               //when 'num' buttons clicked, add the num values to the display
 nums.forEach((num) => {
@@ -35,12 +35,16 @@ ops.forEach((op) => {
 
 let equals = document.getElementById("=");
 equals.addEventListener('click', () => {                                                //when = button is clicked
+    if (firstInput == undefined) {
+        errorMessage = "ERROR";
+        display.textContent = errorMessage;
+    } else {
     secondInput = myArray.reduce((firstValue, currentValue) => {                        //store values in array as secondInput
         return `${firstValue}` + `${currentValue}`;
         });
     operate()                                                                           //calculate & return solution
     solution = roundedTotal;                                                                   //store solution as value for continuing equation
-});
+}});
 
 let clear = document.getElementById("clear");
 clear.addEventListener('click', () => {                                                 //when clear button is clicked
